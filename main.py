@@ -4,6 +4,8 @@ from random import seed, randint
 
 class Transaction:
 
+    # A comment
+
     def __init__(self):
         self._hash = self._create_hash_value()
 
