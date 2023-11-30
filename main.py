@@ -29,35 +29,78 @@ class Blockchain:
     #   use get chain to only get hash of last block, len-1 or something
 
 
+class Transaction:
+
+    def __init__(self):
+        self._hash = self._create_hash_value()
+
+    def _create_hash_value(self):
+        return 4
+
+    def get_hash(self):
+        return self._hash
+
+
 class Block:
-    def __init__(self, merkle, txs, nonce):
-        self.merkle = merkle  # previous hash
-        self.transactions = txs  # hash of txs
+    def __init__(self, previous, nonce):
+        # This is the hash of the previous (mined) Blcok
+        self.previous = previous  # previous hash
+        # This 'will be' the has of this Block it is the hash of the nonce and the hash values o
+        # of each of the 10 nested transactions
+        self.hash = 0
+
         self.nonce = nonce
+        self._transactions = []
+        for i in range(10):
+            self._transactions.append(Transaction())
+
+        # Generate the hash self._hash = afunctionyouwrite()
+
 
     def __str__(self):
         return f"Block(merkle={self.merkle}, txs={self.transactions}, nonce={self.nonce})"
 
 
 class Miner:
-    def __init__(self, number, hardwarePower):
-        self.number = number
+
+    def __init__(self, id, hardwarePower):
+
+        self._id = id
         self.hardwarePower = hardwarePower  # ?not to sure if this should be parsed in or determined later, however is a needed attribute
+
+        self._mining = False
+        self._block = None
+        self._nonce = 0
+
+    def start_mine(self, block, threshhold):
+        self._block = block
+        self._mining = True
+
+    def stop_min(self):
+        self._mining = False
+        self._block = None
+
+    def handle_tick(self):
+
+        self.mine(0)
+        self._nonce = self._nonce + 1
+        return self._block, self._id
 
     def getHardwarePower(self):
         return self.hardwarePower
 
+'''
     @staticmethod  # method that belongs to the class rather than to instances of the class
-    def mine(difficulty):  # ALSO TAKE HASHED TXS FROM BLOCK INSTANCE AS WELL AS MERKLE, THEN HASH UNTIL DIFFICULTY THRESHOLD MET
+    def mine(threshold):  # ALSO TAKE HASHED TXS FROM BLOCK INSTANCE AS WELL AS MERKLE, THEN HASH UNTIL DIFFICULTY THRESHOLD MET
         flag = False
         x = -1
 
         while not flag:  # while flag is not true
             x += 1
             tempNonce = "coin" + str(x)
-            #print(tempNonce)
+            # print(tempNonce)
             hashedCoin = str(sha256(tempNonce.encode('utf-8')).hexdigest())
-            #print(hashedCoin)
+            # print(hashedCoin)
             zeroStr = '0' * difficulty
 
             if hashedCoin[0:difficulty] == zeroStr:
@@ -65,6 +108,7 @@ class Miner:
                 flag = True
                 print(tempNonce)
                 print(hashedCoin)
+'''
 
         # call func to add fully hashed block to chain.
 
@@ -83,7 +127,8 @@ def hashGenerator(enteredSeed):
     seed(enteredSeed)
     fullHash = ""
     completeHash = ""
-    for x in range(10):  # generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block
+    for x in range(
+            10):  # generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block
         value = str(randint(0, 1000))
         hashedVal = str(sha256(value.encode('utf-8')).hexdigest())
         fullHash = hashedVal + fullHash
@@ -93,6 +138,25 @@ def hashGenerator(enteredSeed):
     return completeHash
 
 
+def do_run():
+    running = True
+    local_block = None
+
+    miners_list = []
+
+    for i in range(0, 4):
+        miners_list.append(Miner(i, 20))
+
+    while running:
+        # Create a new block
+        for miner in miners_list:
+            (found, id) = miner.handle_tick()
+
+
+if __name__ == '__main__':
+    do_run()
+
+'''
 chainHash = hashGenerator(1)
 blockchain = Blockchain()  # keep outside of loop
 block1 = Block(123, chainHash, 1)
@@ -121,6 +185,8 @@ for x in range(10):
         print("miner hardware 1 firing")
     if loopCounter >= 2:
         print("miner hardware 2 firing")
+'''
+
 ##  struggling with the idea of firing mine once, saving the state, going through the loop,
 ##  then loading that state and continuing from saved state for each miner
 
