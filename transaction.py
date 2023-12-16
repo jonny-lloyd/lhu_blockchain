@@ -1,6 +1,7 @@
 from random import randint
 from hashlib import sha256
 
+
 class Transaction:
     def __init__(self):
         self._hash = self._create_hash_value()

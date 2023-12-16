@@ -1,7 +1,7 @@
 
 class Blockchain:
     def __init__(self):
-        self.blockHeight = 0
+        self._blockHeight = None
         self.chain = ["Genesis"]  # need to hash this - or just hash the raw data?
         #  self.merkle = merkle
 
@@ -9,11 +9,8 @@ class Blockchain:
         self.chain.append(block)  # fully hashed block
 
     def getChainHeight(self):
-        self.blockHeight = len(self.chain)  # updates then returns the blockHeight
-        return self.blockHeight
-
-    # def getChainHeight(self):
-    #    return self.blockHeight
+        self._blockHeight = len(self.chain)  # updates then returns the blockHeight
+        return self._blockHeight
 
     def getChain(self):
         chain_strs = []

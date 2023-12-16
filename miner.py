@@ -22,7 +22,7 @@ class Miner:
 
     def handle_tick(self):
 
-        self.mine(0)
+        self.mine(self._nonce)
         self._nonce = self._nonce + 1  # put this in mine function, after you know the hashed val is not valid for difficulty
         return self._block, self._id
 
@@ -30,10 +30,11 @@ class Miner:
         return self.hardwarePower
 
     @staticmethod  # method that belongs to the class rather than to instances of the class
-    def mine(
-            threshold):  # ALSO TAKE HASHED TXS FROM BLOCK INSTANCE AS WELL AS MERKLE, THEN HASH UNTIL DIFFICULTY THRESHOLD MET
+    def mine(threshold):  # ALSO TAKE HASHED TXS FROM BLOCK INSTANCE AS WELL AS MERKLE, THEN HASH UNTIL DIFFICULTY THRESHOLD MET
         flag = False
         x = -1
+
+        ### need to combine all inputs: last hash and hashed txs bundle, then PoW that with nonce
 
         ###NEED TO GET RID OF WHILE AND MAKE IT RETURN NONCE AT A TIME, UPDATE START_MINE WHEN BLOCK IS PARSED, check if criteria is met, if so pass stop mine, miner number and mined
         ###block to append to chain
@@ -52,7 +53,7 @@ class Miner:
                 print(tempNonce)
                 print(hashedCoin)
 
-        # call func to add fully hashed block to chain.
+        # call func to add fully hashed block to chain. - from root
 
         # have to consider how this will fire, it needs to be able to build on last iteration count - as some miners will miss iterations per mine cycle -
         # maybe make an if that checks if the iteration count is 0? - maybe store iteration count + hash so will remember on the miners side

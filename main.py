@@ -1,40 +1,42 @@
 from blockchain import *
 from miner import *
-from transaction import *
-
-
-class Block:
-    def __init__(self, previous, nonce):
-        # This is the hash of the previous (mined) Blcok - maybe logic for genesis, but doesnt matter if its a hash
-        self.previous = previous  # previous hash
-        # This 'will be' the hash of this Block it is the hash of the nonce and the hash values
-        # of each of the 10 nested transactions
-        self.hash = 0
-
-        self.nonce = nonce
-        self._transactions = []
-        for i in range(10):
-            self._transactions.append(Transaction())
-
-        # Generate the hash self._hash = afunctionyouwrite() - concat then hash generates hashes
-
-    def __str__(self):
-        return f"Block(merkle={self.previous}, txs={self._transactions}, nonce={self.nonce})"
+from block import *
 
 
 def do_run():
+    blockchain = Blockchain()
+    threshold = 3  # this will fluctuate in an outer loop, inner loop will mine, outer loop will append mined block and generate new threshold
     running = True
-    local_block = None
 
     miners_list = []
+    for i in range(0, 4):       #id  #pwr
+        miners_list.append(Miner(i+1, i))  # miner id correlates to hardware power for now, where the lowest number will be number 1
 
-    for i in range(0, 4):
-        miners_list.append(Miner(i, 20))
+    while running:  # this allows if statement to see if chain is appending to genesis or not, then creates a local block using previous block + txs bundle
+        if blockchain.getChainHeight() == 1:
+            local_block = Block(blockchain.chain[0])
+        else:
+            local_block = Block(blockchain.chain[blockchain.getChainHeight()-1])
+            print(local_block)
+            print(blockchain.chain)
+            break
+        print(blockchain.chain)
+        print(local_block)
+        blockchain.addToChain("block")
 
-    while running:
-        # Create a new block
+        # Create a new block, while running will run until local_block has something to put in it, then can push that to append to blockchain
+
+        '''
         for miner in miners_list:
             (found, id) = miner.handle_tick()
+
+            ## loopCounter = -1 loop here, parse in the id to identify which miner is being called
+            # can still structure it like the (loopCounter = -1 loop) where print("miner hardware 0 firing") is a miner.tick, parsing in miner id and returning if solved + nonce
+            # (id is already known)
+            # threshold needs to be determined around here somewhere, to then parse to mine funct
+            if found:
+                running = False  # simulated full node majority validation
+        '''
 
 
 if __name__ == '__main__':
@@ -96,6 +98,6 @@ def hashGenerator(enteredSeed):
 # files that feed into do_run() main file-
 # PROGRAM LOG
 # took nonce hashing algo and txs generator from another file where i experimented with it until it was ok for this program -- generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block--
-# cut away most of the implementation of my mining logic (while loop) to be replaced with a tick based system, where each miner mines sequentially based on their hardware capabilities, then returns the nonce, easing the whole process
-#
+# cut away most of the implementation of my mining logic (while loop) to be replaced with a tick based system, where each miner mines sequentially based on their hardware capabilities, then returns the nonce, easing the whole process --
+# local_block = Block(blockchain.chain[0]) if genesis or not logic implementation --
 #
