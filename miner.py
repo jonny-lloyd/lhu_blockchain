@@ -13,18 +13,23 @@ class Miner:
 
     def start_mine(self, block,
                    threshhold):  # threshold to be determined randomly after every blockchain block appending
-        self._block = block
-        self._mining = True
+        self._block = block  # set state of block to local block, so then _block can be used when passed into PoW function
+        self._mining = True  # ?why is this here? so can determine whether
 
     def stop_mine(self):
         self._mining = False
         self._block = None
 
-    def handle_tick(self):
+    def handle_tick(self):  # PASS IN LOCAL BLOCK, THEN PASS LOCAL BLOCK TO MINE FUNCT, WHICH WILL BE HASHED WITH MINERS STORED NONCE
+        # pass in local block and difficulty, hash combing miners nonce attribute, return. logic determines if it meets diff criteria here, if so then stop_mine and return completed block,
+        # else end handle_tick and wait for next miner to mine
 
         self.mine(self._nonce)
-        self._nonce = self._nonce + 1  # put this in mine function, after you know the hashed val is not valid for difficulty
+        self._nonce = self._nonce + 1  # updates nonce within the miner itself -- put this in mine function, after you know the hashed val is not valid for difficulty
         return self._block, self._id
+
+    def setBlock(self, block):
+        self._block = block
 
     def getHardwarePower(self):
         return self.hardwarePower
