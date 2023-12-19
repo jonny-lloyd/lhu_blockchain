@@ -21,7 +21,6 @@ def do_run():
         inner = True  # so inner can be turned off in the inner loop when block is mined, then re-turned on when outer loop restarts
 
         while inner:  # this allows if statement to see if chain is appending to genesis or not, then creates a local block using previous block + txs bundle, loopCounter = -1 here
-            local_block = None  # need to create a temp block which is parsed in to miner ticks so that all info within block can be parsed through and worked on
             mined_block = None
 
             print("running inner")
@@ -32,9 +31,11 @@ def do_run():
                 local_block = Block(blockchain.chain[blockchain.getChainHeight() - 1])
                 print("local", local_block)
                 print(blockchain.chain)
-                #break
+
             print(blockchain.chain)
             mined_block = temp_count  # miners_list[0].handle_tick()  # think this is resolved: (no longer appending to chain) -- dont think matters any way when loopCount is implemented
+            #  now need to consider parsing the local block and using pieces of information from that block to hash and mine
+            del local_block
             break
 
         blockchain.addToChain(mined_block)
