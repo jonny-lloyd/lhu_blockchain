@@ -32,9 +32,7 @@ def do_run():
                 print("local", local_block)
                 print(blockchain.chain)
 
-            print(blockchain.chain)
-            mined_block = temp_count  # miners_list[0].handle_tick()  # think this is resolved: (no longer appending to chain) -- dont think matters any way when loopCount is implemented
-            #  now need to consider parsing the local block and using pieces of information from that block to hash and mine
+            mined_block = miners_list[0].handle_tick(local_block, threshold)
             del local_block
             break
 
@@ -45,6 +43,10 @@ def do_run():
         temp_count += 1  #
         if temp_count > 5:
             outer = False
+
+
+if __name__ == '__main__':
+    do_run()
 
 '''
     for miner in miners_list:
@@ -60,9 +62,6 @@ def do_run():
     if found:
         running = False  # simulated full node majority validation
 '''
-
-if __name__ == '__main__':
-    do_run()
 
 '''
 chainHash = hashGenerator(1)
@@ -116,10 +115,11 @@ def hashGenerator(enteredSeed):
 # This way, each transaction will have a different hash value. Right now, it seems the transactions are using the same previously generated values and not generating new ones inside the loop.
 
 
-# need to do: threshold parsing and use line 19 -- miner tick and do mine functions -- double main loop (line 8) -- loopCounter = -1 logic --
-# files that feed into do_run() main file-- genesis still generates txs--
+# need to do: miner correctly hashes and produces pow -- implement multiple miners with loopCounter = -1 logic
 # PROGRAM LOG
 # took nonce hashing algo and txs generator from another file where i experimented with it until it was ok for this program -- generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block--
 # cut away most of the implementation of my mining logic (while loop) to be replaced with a tick based system, where each miner mines sequentially based on their hardware capabilities, then returns the nonce, easing the whole process --
 # local_block = Block(blockchain.chain[0]) if genesis or not logic implementation -- blockchain appends and references last block even if genesis, however genesis still generates txs--
-# got all of the set up out of the way before actually using the miner_tick yet
+# got all of the set up out of the way before actually using the miner_tick yet -- miner_tick now has functionality, where it is parsed in information, distributed correctly (local block stored in miner when start_mine fires, as well as threshold is now passed to mine())--
+# completed cleaned and finished txs class -- start and stop mine functions both work and are useful (stores local block, then clears local block and nonce when stopped)
+#

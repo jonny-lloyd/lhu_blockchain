@@ -3,7 +3,6 @@ from hashlib import sha256
 
 class Miner:
     def __init__(self, id, hardwarePower):
-
         self._id = id
         self.hardwarePower = hardwarePower  # ?not to sure if this should be parsed in or determined later, however is a needed attribute
 
@@ -11,22 +10,22 @@ class Miner:
         self._block = None
         self._nonce = 0
 
-    def start_mine(self, block,
-                   threshhold):  # threshold to be determined randomly after every blockchain block appending
+    def start_mine(self, block):  # threshold to be determined randomly after every blockchain block appending
         self._block = block  # set state of block to local block, so then _block can be used when passed into PoW function
-        self._mining = True  # ?why is this here? so can determine whether
+        self._mining = True  # ?why is this here? so can determine whether to break out of mining each miner cycle?
 
     def stop_mine(self):
-        self._mining = False
+        self._mining = False  # need to find use of this, maybe in set mining to false then use that to see if mining should stop and move onto next whole block
         self._block = None
+        self._nonce = 0
 
-    def handle_tick(self):  # PASS IN LOCAL BLOCK, THEN PASS LOCAL BLOCK TO MINE FUNCT, WHICH WILL BE HASHED WITH MINERS STORED NONCE
+    def handle_tick(self, block, threshold):  # PASS IN LOCAL BLOCK, THEN PASS LOCAL BLOCK TO MINE FUNCT, WHICH WILL BE HASHED WITH MINERS STORED NONCE
         # pass in local block and difficulty, hash combing miners nonce attribute, return. logic determines if it meets diff criteria here, if so then stop_mine and return completed block,
         # else end handle_tick and wait for next miner to mine
-
-        self.mine(self._nonce)
         self._nonce = self._nonce + 1  # updates nonce within the miner itself -- put this in mine function, after you know the hashed val is not valid for difficulty
-        return self._block, self._id
+        self.start_mine(block)
+        self.mine(threshold)
+        return self._block, self._id  # set self._block to fully mined block when completed
 
     def setBlock(self, block):
         self._block = block
@@ -34,16 +33,24 @@ class Miner:
     def getHardwarePower(self):
         return self.hardwarePower
 
-    @staticmethod  # method that belongs to the class rather than to instances of the class
-    def mine(threshold):  # ALSO TAKE HASHED TXS FROM BLOCK INSTANCE AS WELL AS MERKLE, THEN HASH UNTIL DIFFICULTY THRESHOLD MET
+    def mine(self, threshold):  # ALSO TAKE HASHED TXS FROM BLOCK INSTANCE AS WELL AS MERKLE, THEN HASH UNTIL DIFFICULTY THRESHOLD MET
         flag = False
         x = -1
+        print("entering miner")
+        transactions = self._block.getTxs()
+        print(transactions)
+        print(self._block)
 
-        ### need to combine all inputs: last hash and hashed txs bundle, then PoW that with nonce
+        self.stop_mine()
+        print(self._nonce)
+
+        ### set up complete, time to read all greened out text as well as comments to make sure im not forgetting anuthing before combining
+        # and mining passed in information
 
         ###NEED TO GET RID OF WHILE AND MAKE IT RETURN NONCE AT A TIME, UPDATE START_MINE WHEN BLOCK IS PARSED, check if criteria is met, if so pass stop mine, miner number and mined
         ###block to append to chain
 
+        '''
         while not flag:  # while flag is not true
             x += 1
             tempNonce = "coin" + str(x)
@@ -57,15 +64,4 @@ class Miner:
                 flag = True
                 print(tempNonce)
                 print(hashedCoin)
-
-        # call func to add fully hashed block to chain. - from root
-
-        # have to consider how this will fire, it needs to be able to build on last iteration count - as some miners will miss iterations per mine cycle -
-        # maybe make an if that checks if the iteration count is 0? - maybe store iteration count + hash so will remember on the miners side
-
-        # difficulty determined once per mine cycle (will be a loop inside a loop where outer is mine cycle -
-        # outer is where dif is determined (and where blocks completed blocks could be appended) - and inner is until one cracks difficulty)
-        # then append completed block to blockchain in outer loop
-
-        # could have a counter in the inner loop that resets to 1 every 4 iterations (if there are 4 miners) then set </> thresholds comparing iteration counter
-        # to miner hardware level, if lower then dont execute, else if == or higher then execute mine()
+        '''
