@@ -63,7 +63,7 @@ def do_run():
         print("breaking outer")
         del mined_block
         temp_count += 1  #
-        if temp_count > 1:
+        if temp_count > 5:
             outer = False
 
 
@@ -72,7 +72,9 @@ if __name__ == '__main__':
 
 
 #########################################################################
-# need to do: cleanup -- still relying on breaks for loop exiting (remove inner loop?) -- do run separate file
+# need to do: cleanup -- still relying on breaks for loop exiting (remove inner loop? however this turns miners off and on) -- do run separate file -- really trim and cut down outputs -- return miner number, parallel miner id array, print when blockchain is printed? --
+# loop doesnt use miner hardware level (can just give them the values already in loop) -- get rid of nonce tag in block as its always 0? or just update it just before block is added --
+# miners can rearrange txs to make small miners able to compete(ask mark) --
 # PROGRAM LOG
 # took nonce hashing algo and txs generator from another file where i experimented with it until it was ok for this program -- generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block--
 # cut away most of the implementation of my mining logic (while loop) to be replaced with a tick based system, where each miner mines sequentially based on their hardware capabilities, then returns the nonce, easing the whole process --
