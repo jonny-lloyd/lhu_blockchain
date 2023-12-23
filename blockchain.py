@@ -16,6 +16,3 @@ class Blockchain:
         for block in self.chain:
             chain_strs.append(str(block))  # Convert to actually readable format
         return chain_strs
-
-    # get last block hash
-    #   use get chain to only get hash of last block, len-1 or something

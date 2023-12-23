@@ -78,9 +78,3 @@ class Miner:
             return hashedCoin, flag
         else:
             return "", False  # return unsuccessful attempt
-
-'''
-        if block is correct set mined block as _block then set all miners to stop_mining and return _block
-        else return nothing and keep changing through miners 
-        
-        '''
