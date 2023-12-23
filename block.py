@@ -21,5 +21,8 @@ class Block:
     def getTxs(self):
         return self._transactions
 
+    def getPrevious(self):
+        return self.previous
+
     def __str__(self):
         return f"Block(prevBlock={self.previous}, txs={self._transactions}, nonce={self.nonce})"
