@@ -31,7 +31,7 @@ def do_run():
             print("local", local_block)
             print(blockchain.chain)
 
-        while mined_block is None:  # NEEDS TO BE RESET TO 0 WHEN VALID BLOCK FOUND
+        while mined_block is None:  # NEEDS TO BE RESET TO 0 WHEN VALID BLOCK FOUND.
             loopCounter += 1
             if loopCounter > 3:
                 loopCounter = 0

@@ -27,7 +27,7 @@ class Miner:
             miningOutput, flag = self.mine(threshold)
             if flag == True:
                 winners.append(self._id)
-                return miningOutput  # self._id -- !!set self._block to fully mined block when completed, remember to do something with parsed miner id
+                return miningOutput  # self._id -- !!set self._block to fully mined block when completed, remember to do something with parsed miner id.
             else:
                 return None
         else:
