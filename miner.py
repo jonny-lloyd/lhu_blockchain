@@ -21,23 +21,23 @@ class Miner:
     def handle_tick(self, block, threshold):  # PASS IN LOCAL BLOCK, THEN PASS LOCAL BLOCK TO MINE FUNCT, WHICH WILL BE HASHED WITH MINERS STORED NONCE
         # pass in local block and difficulty, hash combing miners nonce attribute, return. logic determines if it meets diff criteria here, if so then stop_mine and return completed block,
         # else end handle_tick and wait for next miner to mine
-        print("entering miner tick")
+        # print("entering miner tick")
         if self._mining == True:
-            print("self._mining == True, this if for miner ", self._id)
+            # print("self._mining == True, this if for miner ", self._id)
             self._block = block  # set state of block to local block, so then _block can be used when passed into PoW function
             self._nonce = self._nonce + 1  # updates nonce within the miner itself -- put this in mine function, after you know the hashed val is not valid for difficulty
             self.start_mine()
             miningOutput, flag = self.mine(threshold)
-            print("inside tick flag", flag)
-            print("inside tick mining output", miningOutput)
+            # print("inside tick flag", flag)
+            # print("inside tick mining output", miningOutput)
             if flag == True:
                 print("in tick flag true return mining output")
                 return miningOutput  # self._id -- !!set self._block to fully mined block when completed, remember to do something with parsed miner id
             else:
-                print("in tick else return none")
+                # print("in tick else return none")
                 return None
         else:
-            print("in tick else return")
+            # print("in tick else return")
             return
 
     def setBlock(self, block):
@@ -49,26 +49,26 @@ class Miner:
     def mine(self, threshold):  # ALSO TAKE HASHED TXS FROM BLOCK INSTANCE AS WELL AS MERKLE, THEN HASH UNTIL DIFFICULTY THRESHOLD MET
         flag = False
 
-        print("entering mine")
+        # print("entering mine")
         transactions = self._block.getTxs()
         previousBlock = self._block.getPrevious()
-        print("txs: ", transactions)
-        print("local block in miner: ", self._block)
-        print("miner id: ", self._id)
-        print("nonce: ", self._nonce)
-        print("prev: ", previousBlock)
+        # print("txs: ", transactions)
+        # print("local block in miner: ", self._block)
+        # print("miner id: ", self._id)
+        # print("nonce: ", self._nonce)
+        # print("prev: ", previousBlock)
 
         concat = str(transactions) + str(previousBlock)
-        print("concat", concat)
+        # print("concat", concat)
 
         zeroStr = str('0' * threshold)
 
         tempCoin = concat + str(self._nonce)
-        print("concat + nonce: ", tempCoin)
+        # print("concat + nonce: ", tempCoin)
         hashedCoin = str(sha256(tempCoin.encode('utf-8')).hexdigest())
-        print("hashedCoin: ", hashedCoin)
-        print("threshold: ", threshold)
-        print("zerostr: ", zeroStr)
+        # print("hashedCoin: ", hashedCoin)
+        # print("threshold: ", threshold)
+        # print("zerostr: ", zeroStr)
 
         if hashedCoin[0:threshold] == zeroStr:
             print("\nthreshold met")
