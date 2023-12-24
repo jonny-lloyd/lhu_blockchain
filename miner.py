@@ -11,7 +11,7 @@ class Miner:
         self._nonce = 0
 
     def start_mine(self):
-        self._mining = True  # determine whether to break out of mining each miner cycle?
+        self._mining = True  # determine whether to break out of mining each miner cycle
 
     def stop_mine(self):
         self._mining = False  # set mining to false then mining should stop and move onto next whole block

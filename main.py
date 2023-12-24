@@ -15,7 +15,7 @@ if __name__ == '__main__':
 # need to do:
 # get rid of nonce tag in block as its always 0? or just update it just before block is added -- miners can rearrange txs to make small miners able to compete(ask mark) --
 
-# PROGRAM LOG.
+# PROGRAM LOG:
 # took nonce hashing algo and txs generator from another file where i experimented with it until it was ok for this program -- generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block--
 # cut away most of the implementation of my mining logic (while loop) to be replaced with a tick based system, where each miner mines sequentially based on their hardware capabilities, then returns the nonce, easing the whole process --
 # local_block = Block(blockchain.chain[0]) if genesis or not logic implementation -- blockchain appends and references last block even if genesis, however genesis still generates txs--

@@ -2,7 +2,7 @@ from random import randint
 from hashlib import sha256
 
 
-class Transaction:  # generates and returns 1 tx at a time, which gets bundled, hashed and stored in Block
+class Transaction:  # generates and returns 1 tx at a time, which gets bundled hashed and stored in Block
     def __init__(self):
         self._transaction = self._generateTransaction()
 

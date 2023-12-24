@@ -14,5 +14,5 @@ class Blockchain:
     def getChain(self):
         chain_strs = []
         for block in self.chain:
-            chain_strs.append(str(block))  # Convert to actually readable format
+            chain_strs.append(str(block))  # convert to actually readable format
         return chain_strs
