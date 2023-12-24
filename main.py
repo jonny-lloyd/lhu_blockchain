@@ -13,8 +13,7 @@ if __name__ == '__main__':
 
 #########################################################################
 # need to do:
-# loop doesn't use miner hardware level (can just give them the values already in loop) -- get rid of nonce tag in block as its always 0? or just update it just before block is added --
-# miners can rearrange txs to make small miners able to compete(ask mark) --
+# get rid of nonce tag in block as its always 0? or just update it just before block is added -- miners can rearrange txs to make small miners able to compete(ask mark) --
 
 # PROGRAM LOG.
 # took nonce hashing algo and txs generator from another file where i experimented with it until it was ok for this program -- generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block--
