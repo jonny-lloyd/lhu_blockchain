@@ -70,7 +70,7 @@ def do_run():
         print(blockchain.chain)
         del mined_block
         temp_count += 1  #
-        if temp_count > 2:
+        if temp_count > 2:  # determines how many blocks long the chain is
             mainLoop = False
 
     print("Winning miners", winningMiner)

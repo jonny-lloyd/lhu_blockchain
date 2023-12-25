@@ -69,8 +69,8 @@ class Miner:
 
         if hashedBlock[0:threshold] == zeroStr:
             print("\nhash threshold of", zeroStr, "found")
-            print("pre-nonce hash: ", tempBlock)
-            print("post-nonce hash: ", hashedBlock)
+            print("concat with nonce: ", tempBlock)
+            print("post-hash using nonce: ", hashedBlock)
             flag = True
             return hashedBlock, flag
         else:

@@ -24,5 +24,5 @@ if __name__ == '__main__':
 # miner correctly hashes and produces pow -- implement multiple miners with loopCounter = -1 logic (remember when doing writeup to include that i built a loopCounter prototype beforehand which was then implemented with miners)
 # if found: running = False  # simulated full node majority validation -- loopCounter now uses the miners hardware level -- still relying on breaks for loop exiting - removed inner loop --
 # loopCounter NEEDS TO BE RESET TO 0 WHEN VALID BLOCK FOUND (if within every loopCounter condition, if yes then set to -1?) -- return miner number, parallel miner id array, print when blockchain is printed? say in diss that 1 was winning constantly after many simulations so not good enough representation of IRL even tho hardware taken into account--
-# finally updates nonce tag before block is added --
+# finally updates nonce tag before block is added, also prints entirety of worked block --
 #
