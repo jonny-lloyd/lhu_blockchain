@@ -27,6 +27,8 @@ class Miner:
             miningOutput, flag = self.mine(threshold)
             if flag == True:
                 winners.append(self._id)
+                self._block.setNonce(self._nonce)  # updates nonce on the block
+                print("Worked block: ", self._block)
                 return miningOutput  # self._id -- !!set self._block to fully mined block when completed, remember to do something with parsed miner id.
             else:
                 return None

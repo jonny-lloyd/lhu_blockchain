@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
 #########################################################################
 # need to do:
-# get rid of nonce tag in block as its always 0? or just update it just before block is added -- miners can rearrange txs to make small miners able to compete(ask mark) --
+# miners can rearrange txs to make small miners able to compete(ask mark) --
 
 # PROGRAM LOG:
 # took nonce hashing algo and txs generator from another file where i experimented with it until it was ok for this program -- generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block--
@@ -24,5 +24,5 @@ if __name__ == '__main__':
 # miner correctly hashes and produces pow -- implement multiple miners with loopCounter = -1 logic (remember when doing writeup to include that i built a loopCounter prototype beforehand which was then implemented with miners)
 # if found: running = False  # simulated full node majority validation -- loopCounter now uses the miners hardware level -- still relying on breaks for loop exiting - removed inner loop --
 # loopCounter NEEDS TO BE RESET TO 0 WHEN VALID BLOCK FOUND (if within every loopCounter condition, if yes then set to -1?) -- return miner number, parallel miner id array, print when blockchain is printed? say in diss that 1 was winning constantly after many simulations so not good enough representation of IRL even tho hardware taken into account--
-#
+# finally updates nonce tag before block is added --
 #
