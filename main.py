@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
 #########################################################################
 # need to do:
-# miners can rearrange txs to make small miners able to compete(ask mark) --
+# miners can rearrange txs to make small miners able to compete(ask mark), thinking something trivial like 1/10 chance they’ll rearrange the block when it is received, or maybe that’ll increase the lower the hardware capabilities of the miners 1/5, 1/3, etc.
 
 # PROGRAM LOG:
 # took nonce hashing algo and txs generator from another file where i experimented with it until it was ok for this program -- generate 10 random hash strings to simulate a bundle of individually hashed txs presented for a miner to hash then place in a block--

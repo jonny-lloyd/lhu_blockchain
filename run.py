@@ -6,15 +6,15 @@ from block import *
 
 def do_run():
     blockchain = Blockchain()
-    winningMiner = ["Null"]  # pass into tick
+    winningMiner = ["Null"]
 
     mainLoop = True
     temp_count = 0
     loopCounter = -1
 
     miners_list = []
-    for i in range(0, 4):  # id  #pwr
-        miners_list.append(Miner(i + 1, i))  #
+    for i in range(0, 4):        #id   #pwr
+        miners_list.append(Miner(i + 1, i))
 
     while mainLoop:
         mined_block = None
@@ -70,7 +70,7 @@ def do_run():
         print(blockchain.chain)
         del mined_block
         temp_count += 1  #
-        if temp_count > 2:  # determines how many blocks long the chain is
+        if temp_count > 6:  # determines how many blocks long the chain is
             mainLoop = False
 
     print("Winning miners", winningMiner)
