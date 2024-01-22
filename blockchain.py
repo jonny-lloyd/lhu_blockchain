@@ -1,5 +1,12 @@
 
 class Blockchain:
+    """
+    Blockchain is used to create one instance 'blockchain' for every simulation/life-cycle of this program.
+
+    The chain always starts with the Genesis block as every chain needs an initial link, which is inspired by Bitcoins
+    initial Genesis block.
+    """
+
     def __init__(self):
         self._blockHeight = None
         self.chain = ["Genesis"]  # need to hash this - or just hash the raw data?
