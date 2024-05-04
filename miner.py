@@ -13,7 +13,7 @@ class Miner:
 
     def __init__(self, id, hardwarePower):
         self._id = id
-        self.hardwarePower = hardwarePower  # ?not to sure if this should be parsed in or determined later, however is a needed attribute
+        self.hardwarePower = hardwarePower
 
         self._mining = True
         self._block = None
@@ -74,8 +74,6 @@ class Miner:
         the first 3 chars are checked to see if they are all 0's, if so, the block has been successfully mined to meet
         the criteria.
         """
-
-        flag = False
 
         # print("entering mine")
         transactions = self._block.getTxs()

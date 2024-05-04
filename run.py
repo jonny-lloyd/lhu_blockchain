@@ -6,10 +6,22 @@ from block import *
 
 def do_run():
     """
+    here is the template for functions and functions with parameters:
+    '
+    def test_function(p1, p2, p3):
+
+    test_function does blah blah blah.
+
+    :param p1: describe about parameter p1
+    :param p2: describe about parameter p2
+    :param p3: describe about parameter p3
+    :return: describe what it returns
+    '
+
     do_run is where this simulation of PoW mining starts and is orchestrated.
 
     Firstly, 'Blockchain' is instantiated into 'blockchain', a list of Miner instances with different hardware capabilities is generated,
-    as well as the initialisation of the variables winningMiner, mainLoop, temp_count, and loopCounter.
+    as well as the initialisation of the variables winningMiner, mainLoop, and loopCounter.
 
     Then, the mining simulation starts within mainLoop.
 
@@ -99,7 +111,7 @@ def do_run():
         print(blockchain.chain)
         del mined_block
         temp_count += 1
-        if temp_count > 6:  # determines how many blocks long the chain is, doesnt take genesis into account
+        if temp_count > 6:  # determines how many blocks long the chain is, doesnt take genesis into account, so 8
             mainLoop = False
 
     print("Winning miners", winningMiner)
