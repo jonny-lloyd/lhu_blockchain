@@ -43,7 +43,6 @@ class Miner:
         if self._mining == True:
             self._block = block  # set state of block to local block, so then _block can be used when passed into PoW function
             self._nonce = self._nonce + 1  # updates nonce within the miner itself -- in mine function, after you know the hashed val is not valid for difficulty
-            self.start_mine()
             miningOutput, flag = self.mine(threshold)
             if flag == True:
                 winners.append(self._id)
