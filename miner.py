@@ -27,8 +27,10 @@ class Miner:
         self._block = None
         self._nonce = 0
 
-    def handle_tick(self, block, threshold, winners):  # PASS IN LOCAL BLOCK, THEN PASS LOCAL BLOCK TO MINE FUNCT, WHICH WILL BE HASHED WITH MINERS STORED NONCE, then stop_mine and return completed block, else end handle_tick and wait for next miner to mine
+    def handle_tick(self, block, threshold, winners):
         """
+        def handle_tick(self, block, threshold, winners):
+
         handle_tick takes in the block which is to be worked on, as well as the difficulty threshold and an array that
         keeps track of winning miner IDs
 
@@ -37,18 +39,23 @@ class Miner:
 
         A flag is which returns whether the mining attempt was successful, if its true then the miners ID is appended
         to the winner array and the worked block is returned to be appended to 'blockchain'
+
+        :param block: block is a reference to current_block, which is the highest block on the chain and is to be
+        concatenated and mined along with other info such as nonce, transactions, etc
+        :param threshold: random mining difficulty of the block to be produced
+        :param winners: list of winning miners, which may be appended to if the miner wins this tick
+        :return: if a block is mined it is returned, else nothing will be returned
         """
 
-        # print("entering miner tick")
         if self._mining == True:
-            self._block = block  # set state of block to local block, so then _block can be used when passed into PoW function
-            self._nonce = self._nonce + 1  # updates nonce within the miner itself -- in mine function, after you know the hashed val is not valid for difficulty
+            self._block = block  # set state of block to local block, so then _block can be used in PoW function
+            self._nonce = self._nonce + 1  # updates nonce within the miner itself
             miningOutput, flag = self.mine(threshold)
             if flag == True:
                 winners.append(self._id)
                 self._block.setNonce(self._nonce)  # updates nonce on the block
                 print("Worked block: ", self._block)
-                return miningOutput  # self._id -- !!set self._block to fully mined block when completed, remember to do something with parsed miner id.
+                return miningOutput
             else:
                 return None
         else:
@@ -65,6 +72,7 @@ class Miner:
 
     def mine(self, threshold):
         """
+        def mine(self, threshold):
         The passed in block has all information that constitutes a block (concatenated Txs hash + previous block + nonce)
         concatenated then hashed.
 
@@ -72,22 +80,24 @@ class Miner:
         chars at the beginning of the post-work-hash (hashedBlock). For example if the difficulty threshold is 3,
         the first 3 chars are checked to see if they are all 0's, if so, the block has been successfully mined to meet
         the criteria.
+
+        :param threshold: required block difficulty
+        :return: if the leading 0s of a produced hash meets the threshold, a valid mined block has been mined a flag is
+        raised and the mined block is returned, else there are two empty returns
         """
 
-        # print("entering mine")
         transactions = self._block.getTxs()
         previousBlock = self._block.getPrevious()
+        print("nonce: ", self._nonce)
         # print("txs: ", transactions)
         # print("local block in miner: ", self._block)
         # print("miner id: ", self._id)
-        print("nonce: ", self._nonce)
         # print("prev: ", previousBlock)
 
+
         concat = str(transactions) + str(previousBlock)
-        # print("concat", concat)
-
         zeroStr = str('0' * threshold)
-
+        # print("concat", concat)
         tempBlock = concat + str(self._nonce)
         print("concatenated hash + previous block + nonce: ", tempBlock)
         hashedBlock = str(sha256(tempBlock.encode('utf-8')).hexdigest())

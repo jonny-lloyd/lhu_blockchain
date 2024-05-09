@@ -6,18 +6,6 @@ from block import *
 
 def do_run():
     """
-    here is the template for functions and functions with parameters:
-    '
-    def test_function(p1, p2, p3):
-
-    test_function does blah blah blah.
-
-    :param p1: describe about parameter p1
-    :param p2: describe about parameter p2
-    :param p3: describe about parameter p3
-    :return: describe what it returns
-    '
-
     do_run is where this simulation of PoW mining starts and is orchestrated.
 
     Firstly, 'Blockchain' is instantiated into 'blockchain', a list of Miner instances with different hardware capabilities is generated,
@@ -28,12 +16,11 @@ def do_run():
     After the right block hash has been found, all miners are turned off and the mined block is appended to 'blockchain'.
     """
 
-    blockchain = Blockchain()
+    blockchain = Blockchain()  # instantiation of blockchain
     winningMiner = ["Null"]  # list of winning miners for every block
-
     mainLoop = True
-    temp_count = 0  # USED FOR TESTING - delete from desc above
-    loopCounter = -1  #
+    temp_count = 0  # chain length counter
+    loopCounter = -1
 
     miners_list = []
     for i in range(0, 4):        #id   #pwr
@@ -56,7 +43,7 @@ def do_run():
             miner.start_mine()
 
         if blockchain.getChainHeight() == 1:
-            local_block = Block(blockchain.chain[0])  # creation of the local block passing in previous block
+            local_block = Block(blockchain.chain[0])  # creation of the new block passing in local_block
             print("local ", local_block)
         else:
             local_block = Block(blockchain.chain[blockchain.getChainHeight() - 1])

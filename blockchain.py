@@ -9,7 +9,7 @@ class Blockchain:
 
     def __init__(self):
         self._blockHeight = None
-        self.chain = ["Genesis"]  # need to hash this - or just hash the raw data?
+        self.chain = ["Genesis"]  
 
     def addToChain(self, block):
         self.chain.append(block)  # fully hashed block
